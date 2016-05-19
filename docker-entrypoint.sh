@@ -4,9 +4,6 @@
 
 HOST_ID=${POD_ORDER:4}
 
-source /tmp/bin/set_config_file.sh
-
-
 if [ ! -d $ZK_DATA/$HOST_ID ];then
  mkdir -pv ${ZK_DATA}/${HOST_ID} 
  chown zookeeper.zookeeper ${ZK_DATA}/${HOST_ID} -R
