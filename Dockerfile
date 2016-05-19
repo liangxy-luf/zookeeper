@@ -1,9 +1,7 @@
 FROM java:openjdk-8-jre-alpine
-MAINTAINER Justin Plock <justin@plock.net>
+MAINTAINER zhouyq <zhouyq@goodrain.com>
 
 ENV ZK_VERSION="3.4.8"
-
-RUN apk add --no-cache bash-completion
 
 # timezone
 RUN apk add --no-cache tzdata && \
@@ -12,7 +10,8 @@ RUN apk add --no-cache tzdata && \
        date && apk del --no-cache tzdata
 
 # add zookeeper user
-RUN groupadd -r -g 200 zookeeper && useradd -r -u 200 -g zookeeper zookeeper
+RUN sed -i -r 's/nofiles/zookeeper/' /etc/group && \
+    adduser -u 200 -D -S -G zookeeper zookeeper
 
 
 
