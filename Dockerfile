@@ -20,6 +20,10 @@ RUN apk add --no-cache wget bash su-exec \
     && wget -q -O - http://apache.mirrors.pair.com/zookeeper/zookeeper-${ZK_VERSION}/zookeeper-${ZK_VERSION}.tar.gz | tar -xzf - -C /opt \
     && mv /opt/zookeeper-$ZK_VERSION /opt/zookeeper \
     && chown zookeeper.zookeeper /opt/zookeeper -R
+    
+ADD docker-entrypoint.sh /usr/bin/
+
+RUN chmod +x /usr/bin/docker-entrypoint.sh
 
 EXPOSE 2181 2888 3888
 
@@ -27,5 +31,5 @@ WORKDIR /opt/zookeeper
 
 VOLUME /data
 
-ENTRYPOINT ["/opt/zookeeper/bin/zkServer.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["start-foreground"]
