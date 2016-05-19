@@ -29,6 +29,8 @@ RUN chmod +x /usr/bin/docker-entrypoint.sh
 RUN wget -O /usr/local/bin/NodeNetPlugin "https://github.com/goodrain/NodeNetPlugin/releases/download/${NODENET_VERSION}/NodeNetPlugin" && \
     chmod +x /usr/local/bin/NodeNetPlugin
 
+COPY conf /opt/zookeeper/conf
+
 EXPOSE 2181 2888 3888
 
 WORKDIR /opt/zookeeper
