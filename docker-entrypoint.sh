@@ -3,6 +3,7 @@
 [ $DEBUG ] && set -x
 
 HOST_ID=${POD_ORDER:4}
+((HOST_ID++))
 
 if [ ! -d $ZK_DATA/$HOST_ID ];then
  mkdir -pv ${ZK_DATA}/${HOST_ID} 
