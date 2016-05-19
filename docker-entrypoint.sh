@@ -13,7 +13,7 @@ if [ ! -d $ZK_DATA/$HOST_ID ];then
  chown zookeeper.zookeeper ${ZK_DATA}/${HOST_ID} -R
 fi
 
-# wait zookeeper
+# wait other zookeeper modify zoo.cfg
 MAXWAIT=${MAXWAIT:-30}
 wait=0
 while [ $wait -lt $MAXWAIT ]
@@ -43,10 +43,14 @@ if [ "$wait" = $MAXWAIT ]; then
 	exit 1
 fi
 
-# allow the container to be started with `--user`
-if [ "$(id -u)" = '0' ]; then
-	chown -R zookeeper .
-	exec su-exec zookeeper /opt/zookeeper/bin/zkServer.sh "$@"
-fi
+case $HOST_ID in
+  1)
+  ;;
+  2)
+  3)
+esac
 
-exec /opt/zookeeper/bin/zkServer.sh "$@"
+function run_zookeeper() {
+  echo $HOST_ID > $ZK_DATA/$HOST_ID/myid
+  exec su-exec zookeeper /opt/zookeeper/bin/zkServer.sh "$@"
+}
