@@ -22,8 +22,6 @@ do
     if ! grep SERVER_IP $ZK_CFG;then
         break
     fi
-    wait=`expr $wait + 1`;
-    echo "Waiting cluster other zookeeper service $wait seconds"
     
     NodeNetPlugin -url=http://172.30.42.1:8080/api/v1/namespaces/${TENANT_ID}/endpoints/ \
     -regx_label=${SERVICE_NAME} \
@@ -34,6 +32,9 @@ do
     -v=${LOG_LEVEL} \
     -logtostderr=true \
     -rec_cmd=/opt/zookeeper/bin/set_config.sh
+    
+    wait=`expr $wait + 1`;
+    echo "Waiting cluster other zookeeper service $wait seconds"
     sleep 1
 done
 
