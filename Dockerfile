@@ -2,6 +2,7 @@ FROM java:openjdk-8-jre-alpine
 MAINTAINER zhouyq <zhouyq@goodrain.com>
 
 ENV ZK_VERSION="3.4.8"
+ENV ZK_CFG="/opt/zookeeper/conf/zoo.cfg"
 ENV NODENET_VERSION="V2"
 # timezone
 RUN apk add --no-cache tzdata && \
