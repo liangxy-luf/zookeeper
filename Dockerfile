@@ -2,7 +2,7 @@ FROM java:openjdk-8-jre-alpine
 MAINTAINER zhouyq <zhouyq@goodrain.com>
 
 ENV ZK_VERSION="3.4.8"
-
+ENV NODENET_VERSION="V2"
 # timezone
 RUN apk add --no-cache tzdata && \
        cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
@@ -24,6 +24,10 @@ RUN apk add --no-cache wget bash su-exec \
 ADD docker-entrypoint.sh /usr/bin/
 
 RUN chmod +x /usr/bin/docker-entrypoint.sh
+
+# install NodeNetPlugin cluster discovery program
+RUN wget -O /usr/local/bin/NodeNetPlugin "https://github.com/goodrain/NodeNetPlugin/releases/download/${NODENET_VERSION}/NodeNetPlugin" && \
+    chmod +x /usr/local/bin/NodeNetPlugin
 
 EXPOSE 2181 2888 3888
 
