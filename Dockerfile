@@ -7,7 +7,7 @@ ENV NODENET_VERSION="V2"
 ENV ZK_DATA="/data"
 
 # timezone
-RUN apk add --no-cache tzdata && \
+RUN apk add --no-cache tzdata libc6-compat && \
        cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
        echo "Asia/Shanghai" >  /etc/timezone && \
        date && apk del --no-cache tzdata
