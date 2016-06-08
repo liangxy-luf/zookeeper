@@ -3,8 +3,8 @@
 NODE_LIST=(`echo $1 | awk -F ',' '{print $1,$2,$3}'`)
 
 
-if [ "${#HOST_LIST[*]}" == "$SERVICE_POD_NUM" ];then
-  for INFO in $HOST_LIST
+if [ "${#NODE_LIST[*]}" == "$SERVICE_POD_NUM" ];then
+  for INFO in ${NODE_LIST[*]}
   do
     node=(`echo $INFO | awk -F ':' '{print $1,$2,$3}'`)
     zk_ip=${node[0]}
