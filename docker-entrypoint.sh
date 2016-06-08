@@ -18,20 +18,15 @@ MAXWAIT=${MAXWAIT:-30}
 wait=0
 while [ $wait -lt $MAXWAIT ]
 do
-    echo stat | nc $ZK_HOST $ZK_PORT
-    if ! grep SERVER_IP $ZK_CFG;then
-        break
+    if [ ! -f /tmp/cluster_ok ];then
+      NodeNetPlugin -url=http://172.30.42.1:8080/api/v1/namespaces/${TENANT_ID}/endpoints/ \
+      -regx_label=${SERVICE_NAME} \
+      -frequency=once \
+      -regx_port=2181 \
+      -v=${LOG_LEVEL} \
+      -logtostderr=true \
+      -rec_cmd=/opt/zookeeper/bin/set_config.sh
     fi
-    
-    NodeNetPlugin -url=http://172.30.42.1:8080/api/v1/namespaces/${TENANT_ID}/endpoints/ \
-    -regx_label=${SERVICE_NAME} \
-    -frequency=once \
-    -exec_num=3 \
-    -interval=10 \
-    -regx_port=2181 \
-    -v=${LOG_LEVEL} \
-    -logtostderr=true \
-    -rec_cmd=/opt/zookeeper/bin/set_config.sh
     
     wait=`expr $wait + 1`;
     echo "Waiting cluster other zookeeper service $wait seconds"
