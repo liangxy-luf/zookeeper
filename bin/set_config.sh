@@ -1,6 +1,6 @@
 #!/bin/bash
 
-HOST_LIST=$!
+HOST_LIST=$1
 
 [ ! $HOST_LIST ] && exit 0
 
