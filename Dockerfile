@@ -4,6 +4,8 @@ MAINTAINER zhouyq <zhouyq@goodrain.com>
 ENV ZK_VERSION="3.4.8"
 ENV ZK_CFG="/opt/zookeeper/conf/zoo.cfg"
 ENV NODENET_VERSION="V2"
+ENV ZK_DATA="/data"
+
 # timezone
 RUN apk add --no-cache tzdata && \
        cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
