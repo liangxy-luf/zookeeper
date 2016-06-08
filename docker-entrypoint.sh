@@ -28,6 +28,8 @@ do
       -v=${LOG_LEVEL} \
       -logtostderr=true \
       -rec_cmd=/opt/zookeeper/bin/set_config.sh
+    else
+      break
     fi
     
     wait=`expr $wait + 1`;
