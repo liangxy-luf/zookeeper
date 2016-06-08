@@ -38,14 +38,10 @@ if [ "$wait" = $MAXWAIT ]; then
 	exit 1
 fi
 
-case $HOST_ID in
-  1)
-  ;;
-  2)
-  3)
-esac
 
 function run_zookeeper() {
   echo $HOST_ID > $ZK_DATA/$HOST_ID/myid
-  exec su-exec zookeeper /opt/zookeeper/bin/zkServer.sh "$@"
+  exec su-exec zookeeper /opt/zookeeper/bin/zkServer.sh "$1"
 }
+
+run_zookeeper "$@"
