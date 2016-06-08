@@ -16,7 +16,7 @@ RUN sed -i -r 's/nofiles/zookeeper/' /etc/group && \
 
 
 
-RUN apk add --no-cache wget bash su-exec \
+RUN apk add --no-cache wget curl bash su-exec \
     && mkdir /opt \
     && wget -q -O - http://apache.mirrors.pair.com/zookeeper/zookeeper-${ZK_VERSION}/zookeeper-${ZK_VERSION}.tar.gz | tar -xzf - -C /opt \
     && mv /opt/zookeeper-$ZK_VERSION /opt/zookeeper \
@@ -27,7 +27,7 @@ ADD docker-entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/docker-entrypoint.sh
 
 # install NodeNetPlugin cluster discovery program
-RUN wget -O /usr/local/bin/NodeNetPlugin "https://github.com/goodrain/NodeNetPlugin/releases/download/${NODENET_VERSION}/NodeNetPlugin" && \
+RUN wget -q -O /usr/local/bin/NodeNetPlugin "https://github.com/goodrain/NodeNetPlugin/releases/download/${NODENET_VERSION}/NodeNetPlugin" && \
     chmod +x /usr/local/bin/NodeNetPlugin
 
 COPY conf /opt/zookeeper/conf
