@@ -9,9 +9,13 @@ IFS=","
 
 for INFO in $HOST_LIST
 do
-  read zk_ip zk_port zk_order < <(echo $INFO | awk -F : '{print $1,$2,$3}')
+  IFS=" "
+  node=(`echo $INFO | awk -F ':' '{print $1,$2,$3}'`)
+  zk_ip=${node[0]}
+  zk_port=${node[1]}
+  zk_order=${node[2]}
   ((zk_order++))
-  sed -i -r "s#(server.$zk_order)=SERVER_IP(:2888:3888)#\1=$zk_ip\2#" $ZK_CFG
+  echo server.$zk_order=$zk_ip:2888:3888 >> ZK_CFG
 done
 
 IFS=$OLD_IFS
