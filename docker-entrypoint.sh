@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sleep ${PAUSE:0}
+
 [ $DEBUG ] && set -x
 
 HOST_ID=${POD_ORDER:4}
