@@ -26,6 +26,7 @@ RUN apk add --no-cache wget curl bash su-exec \
     && chown zookeeper.zookeeper /opt/zookeeper -R
     
 ADD docker-entrypoint.sh /usr/bin/
+ADD bin/ /opt/zookeeper/
 
 RUN chmod +x /usr/bin/docker-entrypoint.sh
 
