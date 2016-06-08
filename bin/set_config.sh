@@ -2,7 +2,6 @@
 
 NODE_LIST=(`echo $1 | awk -F ',' '{print $1,$2,$3}'`)
 
-[ ! $HOST_LIST ] && exit 0
 
 if [ "${#HOST_LIST[*]}"" == "$SERVICE_POD_NUM" ];then
   for INFO in $HOST_LIST
