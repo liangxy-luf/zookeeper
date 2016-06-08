@@ -3,10 +3,9 @@
 NODE_LIST=(`echo $1 | awk -F ',' '{print $1,$2,$3}'`)
 
 
-if [ "${#HOST_LIST[*]}"" == "$SERVICE_POD_NUM" ];then
+if [ "${#HOST_LIST[*]}" == "$SERVICE_POD_NUM" ];then
   for INFO in $HOST_LIST
   do
-    IFS=" "
     node=(`echo $INFO | awk -F ':' '{print $1,$2,$3}'`)
     zk_ip=${node[0]}
     zk_port=${node[1]}
