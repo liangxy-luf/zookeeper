@@ -28,7 +28,7 @@ RUN apk add --no-cache wget curl bash su-exec \
 ADD docker-entrypoint.sh /usr/bin/
 ADD bin/ /opt/zookeeper/bin
 
-RUN chmod +x /usr/bin/docker-entrypoint.sh
+RUN chmod +x /usr/bin/docker-entrypoint.sh /opt/zookeeper/bin/set_config.sh
 
 # install NodeNetPlugin cluster discovery program
 RUN wget -q -O /usr/local/bin/NodeNetPlugin "https://github.com/goodrain/NodeNetPlugin/releases/download/${NODENET_VERSION}/NodeNetPlugin" && \
