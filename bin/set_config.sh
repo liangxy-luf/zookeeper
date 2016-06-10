@@ -11,7 +11,9 @@ if [ "${#NODE_LIST[*]}" == "$SERVICE_POD_NUM" ];then
     zk_port=${node[1]}
     zk_order=${node[2]}
     ((zk_order++))
-    echo server.$zk_order=$zk_ip:2888:3888 >> $ZK_CFG
+    if [ "$SERVICE_POD_NUM" != "1" ];then
+      echo server.$zk_order=$zk_ip:2888:3888 >> $ZK_CFG
+    fi
     sed -i -r "s#(dataDir)=.*#\1=/data/zookeeper/$zk_order#" $ZK_CFG
   done
   
